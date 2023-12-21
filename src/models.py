@@ -81,7 +81,7 @@ class FavoriteCharacters(Base):
 class FavoritePlanets(Base):
     __tablename__ = "favorite_planets"
     id = Column(Integer, primary_key=True)
-    users_id = Column(Integer, ForeignKey("users.id"))  # many:many relationship
+    users_id = Column(Integer, ForeignKey("users.id"))  # many:many relationship (many users can have many favorites)
     planets_id = Column(Integer, ForeignKey("planets.id")) 
     users = relationship(Users)  
     planets = relationship(Planets)
@@ -93,7 +93,7 @@ class Address(Base):
     street_name = Column(String(250)) 
     street_number = Column(String(250)) 
     post_code = Column(String(250), nullable=False) 
-    users_id = Column(Integer, ForeignKey("users.id")) # 1:many relationship
+    users_id = Column(Integer, ForeignKey("users.id")) # 1:many relationship (1 user can have many addresses)
     users = relationship(Users)
 
     def to_dict(self):
@@ -108,7 +108,7 @@ class Profiles(Base):
     nickname = Column(String(50),nullable=False)
     image_url = Column(String(150),nullable=False)
     users_id = Column(Integer, ForeignKey("users.id"), unique=True)  # unique=True defines the 1:1 relationship (1 profile: 1 user)
-    users = relationships (Users)
+    users = relationship(Users)
 
 
 ## Draw from SQLAlchemy base
